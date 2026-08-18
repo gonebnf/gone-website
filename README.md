@@ -27,9 +27,30 @@ python3 -m http.server 8000
 
 ## Contact form
 
-The "Get in touch" buttons are `mailto:hello@gonelegacy.com`. That address is received by
-AWS SES (receipt rule `forward-all-emails` on the `gonelegacy.com` domain) and forwarded by
-the `ses-email-forwarder` Lambda to gonebnf2025@gmail.com. There is no backend.
+The "Get in touch" buttons are `mailto:hello@gonelegacy.com`. There is no backend.
+
+Note on where that mail goes: `gonelegacy.com` uses **Cloudflare** nameservers
+(`igor.ns.cloudflare.com`, `zara.ns.cloudflare.com`), and its MX records point to
+Cloudflare Email Routing — not to AWS SES. The SES receipt rule and
+`ses-email-forwarder` Lambda still exist in AWS but receive nothing, because no MX
+record directs mail to `inbound-smtp.us-east-1.amazonaws.com`. Confirm
+`hello@gonelegacy.com` is configured as a route in Cloudflare Email Routing.
+
+SES outbound sending does work: the three `_domainkey` DKIM CNAMEs are published in
+Cloudflare, so DKIM passes. The SPF record is `v=spf1 include:_spf.mx.cloudflare.net ~all`
+and does **not** include `amazonses.com`, so SES-sent mail relies on DKIM alone.
+
+## DNS
+
+Cloudflare is authoritative. The Route 53 hosted zone in AWS still exists but nothing
+queries it — the registrar delegates to Cloudflare.
+
+    gonelegacy.com      CNAME -> gonebnf.github.io   (proxied)
+    www.gonelegacy.com  CNAME -> gonebnf.github.io   (proxied)
+
+Because Cloudflare proxies the traffic, TLS is terminated by Cloudflare (Let's Encrypt),
+and GitHub's own "Enforce HTTPS" stays unavailable (`cert_state=none`). Keep the
+Cloudflare SSL/TLS mode on **Full** so the Cloudflare-to-GitHub leg is encrypted.
 
 ## History
 

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gone — Organize what matters, before it's needed</title>
+<meta name="description" content="Gone helps you organize your important documents, accounts, and wishes in one secure place — so the people you care about aren't left searching.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Gone — Organize what matters, before it's needed">
+<meta property="og:description" content="Organize your important documents, accounts, and wishes in one secure place.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gonelegacy.com/">
+<style>
+@font-face{
+  font-family:'InterVar';
+  src:url('/assets/inter-var.woff2') format('woff2');
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
+:root{
+  --ink:#1E2B29;
+  --ink-soft:#4A5B58;
+  --ink-faint:#6E807C;
+  --bg:#FBF9F5;
+  --surface:#FFFFFF;
+  --line:#E3DED3;
+  --accent:#2F4A46;
+  --accent-soft:#E8EFEC;
+  --sand:#E8DCC8;
+  --radius:14px;
+  --maxw:1080px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#ECEFEC; --ink-soft:#B3C0BD; --ink-faint:#8A9B97;
+    --bg:#151C1B; --surface:#1D2725; --line:#2E3B38;
+    --accent:#9FC4BB; --accent-soft:#22302D; --sand:#C9B896;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'InterVar',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+a{color:inherit}
+h1,h2,h3{line-height:1.2; letter-spacing:-0.02em; margin:0}
+h1{font-size:clamp(2.1rem,5.2vw,3.4rem); font-weight:640}
+h2{font-size:clamp(1.5rem,3vw,2rem); font-weight:620}
+h3{font-size:1.06rem; font-weight:620}
+p{margin:0}
+
+/* header */
+header{border-bottom:1px solid var(--line); background:var(--bg); position:sticky; top:0; z-index:10}
+.bar{display:flex; align-items:center; justify-content:space-between; height:68px; gap:16px}
+.brand{display:flex; align-items:center; gap:10px; font-weight:660; letter-spacing:-0.02em; font-size:1.14rem; text-decoration:none}
+.brand img{width:28px; height:28px; border-radius:7px; display:block}
+.nav{display:flex; gap:26px; font-size:.95rem; color:var(--ink-soft)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--ink)}
+@media(max-width:640px){.nav{display:none}}
+
+/* buttons */
+.btn{
+  display:inline-block; padding:13px 24px; border-radius:999px;
+  background:var(--accent); color:var(--bg); text-decoration:none;
+  font-weight:600; font-size:.97rem; border:1px solid var(--accent);
+  transition:opacity .15s ease;
+}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent; color:var(--ink); border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink-faint); opacity:1}
+
+/* hero */
+.hero{padding:clamp(64px,10vw,116px) 0 clamp(52px,7vw,84px)}
+.hero .eyebrow{
+  display:inline-block; font-size:.79rem; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink-faint); border:1px solid var(--line); padding:6px 13px; border-radius:999px; margin-bottom:26px;
+}
+.hero h1{max-width:16ch}
+.hero .lede{margin-top:22px; font-size:clamp(1.06rem,2vw,1.22rem); color:var(--ink-soft); max-width:54ch}
+.cta-row{margin-top:34px; display:flex; gap:13px; flex-wrap:wrap; align-items:center}
+.cta-note{margin-top:16px; font-size:.87rem; color:var(--ink-faint)}
+
+/* pillars */
+.pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding-bottom:clamp(48px,7vw,84px)}
+@media(max-width:820px){.pillars{grid-template-columns:1fr}}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:26px}
+.card .ico{
+  width:38px; height:38px; border-radius:10px; background:var(--accent-soft);
+  display:flex; align-items:center; justify-content:center; margin-bottom:15px;
+}
+.card .ico svg{width:19px; height:19px; stroke:var(--accent); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.card p{margin-top:8px; color:var(--ink-soft); font-size:.96rem}
+
+/* section */
+section{padding:clamp(52px,7vw,86px) 0; border-top:1px solid var(--line)}
+.sec-head{max-width:56ch; margin-bottom:38px}
+.sec-head p{margin-top:12px; color:var(--ink-soft)}
+
+/* steps */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:26px}
+@media(max-width:820px){.steps{grid-template-columns:1fr; gap:30px}}
+.step .num{
+  width:31px; height:31px; border-radius:50%; background:var(--accent); color:var(--bg);
+  display:flex; align-items:center; justify-content:center; font-size:.86rem; font-weight:660; margin-bottom:14px;
+}
+.step p{margin-top:8px; color:var(--ink-soft); font-size:.96rem}
+
+/* faq */
+details{border-bottom:1px solid var(--line); padding:19px 0}
+details summary{
+  cursor:pointer; font-weight:600; list-style:none; display:flex;
+  justify-content:space-between; align-items:center; gap:18px;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:'+'; color:var(--ink-faint); font-size:1.35rem; font-weight:400; line-height:1; flex-shrink:0}
+details[open] summary::after{content:'–'}
+details p{margin-top:12px; color:var(--ink-soft); font-size:.96rem; max-width:70ch}
+
+/* closing */
+.closing{background:var(--accent-soft); border-radius:var(--radius); padding:clamp(34px,5vw,54px); text-align:center}
+.closing p{margin:14px auto 0; color:var(--ink-soft); max-width:48ch}
+.closing .btn{margin-top:26px}
+
+/* footer */
+footer{border-top:1px solid var(--line); padding:34px 0; font-size:.89rem; color:var(--ink-faint)}
+.foot{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center}
+footer a{text-decoration:none}
+footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <img src="/assets/favicon.svg" alt="">
+      <span>Gone</span>
+    </a>
+    <nav class="nav">
+      <a href="#how">How it works</a>
+      <a href="#questions">Questions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn" href="mailto:hello@gonelegacy.com?subject=I%27d%20like%20to%20hear%20more%20about%20Gone">Get in touch</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <span class="eyebrow">Beyond the Gates</span>
+      <h1>Organize what matters, before it's needed.</h1>
+      <p class="lede">
+        Your documents, accounts, and wishes gathered in one place — clearly, calmly, on your
+        own terms. So the people you care about are never left searching.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:hello@gonelegacy.com?subject=I%27d%20like%20to%20hear%20more%20about%20Gone">Get in touch</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <p class="cta-note">Gone is in early development. We'd genuinely like to hear what you need from it.</p>
+    </div>
+
+    <div class="pillars">
+      <div class="card">
+        <div class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.4-3 8.2-7 9-4-.8-7-4.6-7-9V6l7-3z"/></svg>
+        </div>
+        <h3>Secure</h3>
+        <p>Sensitive information deserves care. Your details stay private, encrypted, and shared only with the people you choose.</p>
+      </div>
+      <div class="card">
+        <div class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </div>
+        <h3>Simple</h3>
+        <p>Built for people, not technical experts. Plain language, clear steps, and nothing you need to figure out alone.</p>
+      </div>
+      <div class="card">
+        <div class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 3.5c0 5-7 9.5-7 9.5z"/></svg>
+        </div>
+        <h3>Supported</h3>
+        <p>You're not handed a blank page. There's guidance at every step, and real people to ask when something isn't obvious.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How it works</h2>
+        <p>Three steps, at whatever pace suits you. Nothing has to be finished in one sitting.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>Gather what matters</h3>
+          <p>Accounts, documents, policies, and the small practical details that are easy to forget — collected in one organized place.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>Decide who sees what</h3>
+          <p>You choose which trusted people can access which information, and under what circumstances. Nothing is shared without your say.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>Keep it current</h3>
+          <p>Life changes. Update anything whenever you like, with optional reminders to review every few months.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Questions people ask</h2>
+      </div>
+
+      <details>
+        <summary>What if I'm not tech-savvy?</summary>
+        <p>Gone is designed specifically for non-technical people. The setup is step by step, and we use simple, clear language throughout. If you can send an email, you can use Gone — and support is there when you want a hand.</p>
+      </details>
+
+      <details>
+        <summary>Can I update my information anytime?</summary>
+        <p>Yes. You can add, edit, or remove anything at any time. We actively encourage keeping it current, and can send optional reminders every few months to review what you've stored.</p>
+      </details>
+
+      <details>
+        <summary>When can my family access my information?</summary>
+        <p>You stay in control of when and how your trusted contacts get access. Some information can be available immediately — medical details, for instance — while other items stay private until they're genuinely needed.</p>
+      </details>
+
+      <details>
+        <summary>Do I still need a lawyer?</summary>
+        <p>Gone complements traditional estate planning rather than replacing it. For legally binding documents like wills and trusts, we recommend speaking with an estate planning attorney. Think of Gone as the practical companion to that work.</p>
+      </details>
+
+      <details>
+        <summary>What stage is Gone at?</summary>
+        <p>Gone is in early development, and we're talking to people about what would actually be useful before we build further. If this is something you'd want, we'd like to hear from you — those conversations shape what gets made.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="closing">
+        <h2>One small thing today, instead of a hard one later.</h2>
+        <p>We're building Gone carefully, and in the open. Tell us what you'd need from it.</p>
+        <a class="btn" href="mailto:hello@gonelegacy.com?subject=I%27d%20like%20to%20hear%20more%20about%20Gone">hello@gonelegacy.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Beyond the Gates Inc.</span>
+    <a href="mailto:hello@gonelegacy.com">hello@gonelegacy.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
